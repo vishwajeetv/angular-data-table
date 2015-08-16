@@ -19,6 +19,7 @@ export function BodyDirective($timeout){
     template: `
       <div class="dt-body" ng-style="body.styles()">
         <dt-scroller class="dt-body-scroller">
+          <div class="inner">
           <dt-group-row ng-repeat-start="r in body.tempRows track by $index"
                         ng-if="r.group"
                         ng-style="body.groupRowStyles(r)" 
@@ -53,6 +54,7 @@ export function BodyDirective($timeout){
        <div ng-if="body.rows === undefined" 
              class="loading-row"
              ng-bind="::body.options.loadingMessage">
+        </div>
         </div>
       </div>`
   };

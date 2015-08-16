@@ -1,5 +1,7 @@
 import { requestAnimFrame } from '../../utils/utils';
 import { ScrollHelper } from './ScrollHelper';
+import { updateRows } from '../../utils/style'
+import { TranslateXY } from '../../utils/translate';
 
 export function ScrollerDirective($timeout){
   return {
@@ -16,14 +18,22 @@ export function ScrollerDirective($timeout){
       ctrl.options.internal.scrollHelper = 
         new ScrollHelper($elm.parent());
 
+      var inner = $elm[0].getElementsByClassName('inner');
+
       function update(){
-        $timeout(() => {
+        //$timeout(() => {
           ctrl.options.internal.offsetY = lastScrollY;
           ctrl.options.internal.offsetX = lastScrollX;
           ctrl.updatePage();
-        });
+
+        ctrl.getRows();
+        TranslateXY(inner[0].style, 0, lastScrollY);
+        
+        //updateRows();
+        $scope.$apply();
 
         ticking = false;
+        //});
       };
 
       function requestTick() {
@@ -38,6 +48,8 @@ export function ScrollerDirective($timeout){
         lastScrollX = this.scrollLeft;
         requestTick();
       });
+
+      //updateRows();
 
       $scope.scrollerStyles = function(scope){
         return {

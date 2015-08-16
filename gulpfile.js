@@ -18,7 +18,8 @@ var compilerOptions = {
   modules: 'system',
   moduleIds: false,
   comments: true,
-  compact: false
+  compact: false,
+  stage: 1
 };
 
 var path = {

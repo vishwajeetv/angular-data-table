@@ -2,6 +2,7 @@ import angular from 'angular';
 import { requestAnimFrame, ColumnsByPin } from '../../utils/utils';
 import { KEYS } from '../../utils/keys';
 import { TranslateXY } from '../../utils/translate';
+import { updateRowData } from '../../utils/style';
 
 export class BodyController{
 
@@ -26,7 +27,7 @@ export class BodyController{
     });
 
     if(this.options.scrollbarV){
-      $scope.$watch('body.options.internal.offsetY', throttle(this.getRows.bind(this), 10));
+      //$scope.$watch('body.options.internal.offsetY', throttle(this.getRows.bind(this), 10));
     }
 
     $scope.$watchCollection('body.rows', (newVal, oldVal) => {
@@ -263,6 +264,7 @@ export class BodyController{
         indexes = this.getFirstLastIndexes(),
         rowIndex = indexes.first;
 
+
     while (rowIndex < indexes.last && rowIndex < this.count) {
       var row = temp[rowIndex];
       if(row){
@@ -271,6 +273,8 @@ export class BodyController{
       }
       idx++ && rowIndex++;
     }
+
+    //updateRowData(this.tempRows);
   }
 
   /**
@@ -305,11 +309,11 @@ export class BodyController{
       height: this.options.rowHeight + 'px'
     };
 
-    if(this.options.scrollbarV){
+    /* if(this.options.scrollbarV){
       var idx = row ? row.$$index : 0,
           pos = idx * this.options.rowHeight;
       TranslateXY(styles, 0, pos);
-    }
+    } */
 
     return styles;
   }

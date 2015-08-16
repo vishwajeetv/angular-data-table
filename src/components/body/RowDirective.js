@@ -1,3 +1,5 @@
+import { registerDOM } from '../../utils/style';
+
 export function RowDirective(){
   return {
     restrict: 'E',
@@ -14,6 +16,9 @@ export function RowDirective(){
       options: '=',
       onCheckboxChange: '&',
       onTreeToggle: '&'
+    },
+    link: function($scope, $elm, $attrs, ctrl){
+      registerDOM($scope.$index, $elm);
     },
     template: `
       <div class="dt-row">
